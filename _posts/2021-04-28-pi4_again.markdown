@@ -9,7 +9,7 @@ categories: Math
 <img src="/assets/images/pi4proof.jpg">
 </p>
 
-In my [previous post[(https://jtm508.github.io/math/2021/04/27/pi4_example.html), I showed using a similar example why the $\pi=4$ proof above is wrong. Essentially, it boils down to continuity. In this post, I will try to make this a little more rigorous. 
+In my [previous post](https://jtm508.github.io/math/2021/04/27/pi4_example.html), I showed using a similar example why the $\pi=4$ proof above is wrong. Essentially, it boils down to continuity. In this post, I will try to make this a little more rigorous. 
 
 The proof in the comic essentially works by defining a sequence of shapes $\left(\square_{n}\right)\_{n=1}^{\infty}$. $\square_{1}$ is the unit square, which has perimeter $4$. $\square_{2}$ is formed by removing the corners from $\square_{1}$ in way which preserves the perimeter. $\square_{3}$ is formed by removing the corners from $\square_{2}$ in a way which again preserves the perimeter, and so forth. When the comic “repeats to infinity,” it implicitly invokes the notion of limits. That is, letting $\bigcirc$ be the unit circle, we can define some notion of convergence on the space of shapes such that $\lim_{n\rightarrow\infty}\square_{n}=\bigcirc$. And that is fine so far as it goes. No rules have been broken yet.
 
