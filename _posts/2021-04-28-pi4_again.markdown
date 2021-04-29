@@ -1,0 +1,34 @@
+---
+layout: post
+title:  "pi = 4 again"
+date:   2021-04-28 09:24:07 -0400
+categories: Math
+---
+
+<p align="center">
+<img src="/assets/images/pi4proof.jpg">
+</p>
+
+In my previous post, I showed using a similar example why the $\pi=4$ proof above is wrong. Essentially, it boils down to continuity. In this post, I will try to make this a little more rigorous. 
+
+The proof in the comic essentially works by defining a sequence of shapes $\left(\square_{n}\right)\_{n=1}^{\infty}$. $\square_{1}$ is the unit square, which has perimeter $4$. $\square_{2}$ is formed by removing the corners from $\square_{1}$ in way which preserves the perimeter. $\square_{3}$ is formed by removing the corners from $\square_{2}$ in a way which again preserves the perimeter, and so forth. When the comic “repeats to infinity,” it implicitly invokes the notion of limits. That is, letting $\bigcirc$ be the unit circle, we can define some notion of convergence on the space of shapes such that $\lim_{n\rightarrow\infty}\square_{n}=\bigcirc$. And that is fine so far as it goes. No rules have been broken yet.
+
+The sleight of hand in the final panel is to assume that this limit will preserve the perimeter. If we define $p(x)$ to be the perimeter of shape $x$, then $\pi=p\left(\bigcirc\right)$ by definition. The comic implicitly assumes that since, $\lim_{n\rightarrow\infty}\square_{n}=\bigcirc$, it must also be true that $\lim_{n\rightarrow\infty}p\left(\square_{n}\right)=p\left(\bigcirc\right)$. The proof fails because this is not true. The sequence does indeed satisfy $\lim_{n\rightarrow\infty}p\left(\square_{n}\right)=4$. But $\pi$ is equal to $p\left(\lim_{n\rightarrow\infty}\square_{n}\right)$ which is a totally different object.
+
+To formalize this argument, we need to work with metric spaces. In $\mathbb{R}^{n}$ we can work with the standard Euclidean metric: $d_{\mathbb{R}^{n}}(x,y)=\sqrt{\sum_{i=1}^{n}(x_{i}-y_{i})^{2}}$. But we also require a metric space of shapes in order to formalize the notion that $\lim_{n\rightarrow\infty}\square_{n}=\bigcirc$. 
+
+To this end, let $X$ be the set of shapes, where a shape is defined as some bounded non-empty subset of $\mathbb{R}^{2}$. For example, $\bigcirc\in X$ and is defined by the set $\\{(a,b)\in\mathbb{R}^{2}:a^{2}+b^{2}=1\\} \subset\mathbb{R}^{2}$. Similarly $\square_{n}\in X$ for each $n$. We can define a distance between two shapes $x,y \in X$ using the [Hausdorf Metric](https://en.wikipedia.org/wiki/Hausdorff_distance):
+
+$$d_{X}(x,y)=\max\left(\sup_{a\in x}\inf_{b\in y}d_{\mathbb{R}^{2}}\left(a,b\right),\sup_{a\in y}\inf_{b\in x}d_{\mathbb{R}^{2}}\left(a,b\right)\right).$$
+
+In words, we can define the distance between two shapes as follows: First, for each each point in each shape, find the closest point in the other shape. Then use the maximum of all of these point-wise distances to define the distance between the two shapes. The max operation ensures the metric is symmetric. This will help us avoid implying, for example, that the distance between a half circle and a full circle is $0$. We can now define convergence of shapes according to the Hausdorff metric:
+
+**Definition:** $\lim_{n\rightarrow\infty}\square_{n}=\bigcirc$ if and only if for all $\epsilon>0$, there exists a natural number $n$ such that $d_{X}\left(\square_{n},\bigcirc\right)<\epsilon$ whenever $n>N$.
+
+This definition should be satisfied because if we remove enough corners from the square, all points in the new shape should be within $\epsilon$ distance of the unit circle, and therefore the maximum distance over all of the points in the new shape should be less than $\epsilon$ as well. This is evident from the illustrations in the comic.
+
+Now we define the perimeter function, $p:X\mapsto\mathbb{R}$. The proof would be valid if $\lim_{n\rightarrow\infty}p\left(\square_{n}\right)=p\left(\bigcirc\right):=\pi$. But this is true only if $p$ is a continuous function. In fact, this is one of many valid definitions of a continuous function!
+
+**Definition:** Let $(X,d_{X})$ and $(\mathbb{R},d_{\mathbb{R}})$ be metric spaces, $p:X\mapsto\mathbb{R}$ be a function, and $\bigcirc\in X$. $p$ is *continuous* at $\bigcirc$ if whenever $\lim_{n\rightarrow\infty}\square_{n}=\bigcirc$, we have $\lim_{n\rightarrow\infty}p\left(\square_{n}\right)=p\left(\bigcirc\right)$.
+
+Since $p\left(\lim_{n\rightarrow\infty}\square_{n}\right)=p\left(\bigcirc\right)$, continuity essentially tells us when we can interchange limits and functions to get $p\left(\lim_{n\rightarrow\infty}\square_{n}\right)=\lim_{n\rightarrow\infty} p\left(\square_{n}\right)$. If a function is not continuous, then we cannot pull the limit out, and that is ultimately why the proof fails. What the comic actually proves is that $p$ is not continuous at the unit circle by way of contradiction.

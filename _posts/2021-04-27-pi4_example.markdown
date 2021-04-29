@@ -1,0 +1,46 @@
+---
+layout: post
+title:  "pi = 4"
+date:   2021-04-27 09:24:07 -0400
+categories: Math
+---
+I came across this "proof" that $\pi = 4$ via [Michael Nielsen](https://twitter.com/michael_nielsen/status/1385432052317573122) on Twitter.
+
+<p align="center">
+<img src="/assets/images/pi4proof.jpg">
+</p>
+
+Though everyone knows that there must be a problem with this argument, the flaw is subtle.  I've seen several discussions of this on the internet, but I think most of the explanations are a bit convoluted and many miss the point. From a calculus / analysis perspective the flaw is fairly simple.
+
+Here, I construct a similarly wrong proof that $\pi=4$. It's "similarly wrong" because it takes similar steps and is wrong for the same reason. However, in this case the flaw should be obvious to anyone.
+
+Consider the following function:
+
+$$f(x)=\begin{cases}
+4, & x<1\\
+\pi, & x\ge1.
+\end{cases}$$
+
+If $\pi \approx 3.14$ then the graph should look like this:
+
+<p align="center">
+<img src="/assets/images/pc_function.png">
+</p>
+
+Here are the analogous steps in the new proof that $\pi=4$.
+
+1. Take the point $x_{1}=0$. $f(0)=4$.
+2. Move half the remaining distance to 1, to reach a new point $x_{2}=0.5$. $f(0.5)$ is still 4!
+3. Move half the remaining distance to 1, to reach a new point $x_{3}=0.75$. $f(0.75)$ is still 4!
+4. Repeat to infinity.
+5. $\pi=f(1)=4$!
+
+Looking at the graph of $f$, it is obvious why the proof fails. From an analytical perspective, <em>repeating to infinity</em> invokes the notion of a limit. Our procedure creates a sequence $(x_{n})\_{n=1}^{\infty}=(0,0.5,0.75,...)$ where $\lim_{n\rightarrow\infty}x_{n}=1$. The implicit math behind the erroneous conclusion is:
+
+$$f(1)=f(\lim_{n\rightarrow\infty}x_{n})=\lim_{n\rightarrow\infty}f(x_{n})=4.$$
+
+But in this case $f(\lim_{n\rightarrow\infty}x_{n})\ne\lim_{n\rightarrow\infty}f(x_{n})$. The problem is the discontinuity of $f$ at $x=1$. Although the sequence approaches one, the function suddenly changes when it finally reaches one.
+
+It turns out the comic is flawed for the same reason - the perimeter function is not continuous at the unit circle, so arbitrarily small perturbations in a circle's shape can yield large changes in its perimeter. The lesson is that we need a function to be continuous in order to pull the limit out.
+
+As an aside, I think this is also related: [Mandelbrot's coastline paradox](https://en.wikipedia.org/wiki/Coastline_paradox).
